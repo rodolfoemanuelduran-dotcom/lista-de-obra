@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="R.E.D">
+  <title>R.E.D</title>
+  <circle cx="256" cy="256" r="214" fill="#ffffff" stroke="#16834b" stroke-width="44"/>
+  <circle cx="256" cy="256" r="193" fill="none" stroke="#0e6136" stroke-width="3" opacity="0.45"/>
+  <g fill="none" stroke-width="11" stroke-linecap="round">
+    <path d="M386.8 69.2A228 228 0 0 1 442.8 125.2" stroke="#e03a3e"/>
+    <path d="M125.2 442.8A228 228 0 0 1 69.2 386.8" stroke="#e03a3e"/>
+    <path d="M69.2 125.2A228 228 0 0 1 125.2 69.2" stroke="#2f7fe0"/>
+    <path d="M442.8 386.8A228 228 0 0 1 386.8 442.8" stroke="#2f7fe0"/>
+  </g>
+  <g fill="none" stroke="#1b2421" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M128 303V209H144.5A23.5 23.5 0 0 1 144.5 256H128M144.5 256L168 303"/>
+    <path d="M270 209H240V303H270M240 256H264"/>
+    <path d="M342 303V209H351A33 33 0 0 1 384 242V270A33 33 0 0 1 351 303Z"/>
+  </g>
+  <circle cx="204" cy="306" r="10.5" fill="#e03a3e"/>
+  <circle cx="306" cy="306" r="10.5" fill="#2f7fe0"/>
+</svg>
