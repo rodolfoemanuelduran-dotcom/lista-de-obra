@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cartel con QR · Lista de Obra</title>
+<meta name="description" content="Cartel A4 para imprimir con el código QR de Lista de Obra, la app del curso de Plomería Integral.">
+<link rel="icon" href="../icons/favicon-64.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@700;800&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#e9edeb;color:#16201c;font-family:'Barlow',system-ui,sans-serif}
+.tools{max-width:794px;margin:16px auto 12px;padding:0 12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.tools p{margin:0;font-size:15px;color:#3d4a44}
+.tools .btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{min-height:44px;padding:0 18px;border-radius:12px;border:2px solid #16201c;background:#fff;color:#16201c;font:600 16px 'Barlow',system-ui,sans-serif;display:inline-flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer}
+.btn.primary{background:#15804a;border-color:#15804a;color:#fff}
+.stage{margin:0 auto 24px;overflow:hidden}
+.sheet{width:794px;height:1123px;position:relative;overflow:hidden;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.12),0 12px 32px rgba(0,0,0,.12);transform-origin:0 0;
+  display:flex;flex-direction:column;align-items:center;padding:44px 56px 40px}
+.stripe{position:absolute;left:0;width:794px;height:14px;display:flex}
+.stripe i{flex-grow:1}
+.stripe .a{background:#15804a}.stripe .d{background:#262b29}.stripe .g{background:#f0c30f}
+.logo{width:400px;height:184px;display:block;margin-top:6px}
+h1{margin:14px 0 0;white-space:nowrap;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:96px;line-height:.92;letter-spacing:.01em;text-transform:uppercase;text-align:center}
+.kicker{margin:10px 0 0;font-size:26px;font-weight:600;color:#3d4a44;text-align:center}
+.scan{margin-top:30px;width:682px;display:flex;align-items:center;gap:30px}
+.qr{flex-shrink:0;width:330px;height:330px;border:5px solid #16201c;border-radius:22px;padding:10px;background:#fff}
+.qr img{width:300px;height:300px;display:block;image-rendering:pixelated}
+.cta{display:flex;flex-direction:column;gap:14px}
+.cta .big{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:56px;line-height:.95;text-transform:uppercase;color:#15804a}
+.cta p{margin:0;font-size:22px;line-height:1.35}
+.cta p.soft{font-size:18px;line-height:1.4;color:#3d4a44}
+.install{margin-top:34px;width:682px}
+.label{font-size:15px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#3d4a44}
+.cards{margin-top:12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{border:2px solid #d3ddd8;border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.card .h{display:flex;align-items:center;gap:10px}
+.card .h span{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:25px}
+.card p{margin:0;font-size:16px;line-height:1.35}
+.chips{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.chips span{padding:8px 14px;border-radius:999px;font-size:16px;font-weight:600}
+.foot{margin-top:auto;width:682px;border-top:2px solid #d3ddd8;padding-top:12px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.foot .url{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;font-size:16px}
+.foot .by{font-size:15px;font-weight:600;color:#3d4a44}
+@page{size:A4;margin:0}
+@media print{
+  html,body{background:#fff}
+  .tools{display:none}
+  .stage{margin:0;width:auto!important;height:auto!important;overflow:visible}
+  .sheet{box-shadow:none;transform:none!important;width:210mm;height:297mm}
+}
+</style>
+</head>
+<body>
+<div class="tools">
+  <p>Cartel A4 para pegar en la escuela. Imprimilo a tamaño real, sin márgenes.</p>
+  <div class="btns">
+    <a class="btn" href="../">Abrir la app</a>
+    <button class="btn primary" type="button" onclick="window.print()">Imprimir cartel</button>
+  </div>
+</div>
+<div class="stage" id="stage">
+<main class="sheet" id="sheet">
+  <div class="stripe" style="top:0" aria-hidden="true"><i class="a"></i><i class="d"></i><i class="g"></i></div>
+  <img class="logo" src="logo-red.png" alt="Logo R.E.D armado con caños de desagüe, agua y gas" width="400" height="184">
+  <h1>Lista de Obra</h1>
+  <p class="kicker">La app del curso de Plomería Integral</p>
+  <section class="scan">
+    <div class="qr"><img src="qr-lista-de-obra.svg" alt="Código QR para abrir Lista de Obra" width="300" height="300"></div>
+    <div class="cta">
+      <div class="big">Escaneá<br>el código</div>
+      <p>Apuntá la cámara del celular al cuadro y tocá el enlace que aparece.</p>
+      <p class="soft">Se abre al instante. No hace falta registrarse ni pagar nada.</p>
+    </div>
+  </section>
+  <section class="install">
+    <div class="label">Para tenerla como app</div>
+    <div class="cards">
+      <div class="card">
+        <div class="h"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#15804a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg><span>Android</span></div>
+        <p>En Chrome tocá los tres puntitos y elegí <b>«Instalar app»</b>.</p>
+      </div>
+      <div class="card">
+        <div class="h"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#262b29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg><span>iPhone</span></div>
+        <p>En Safari tocá <b>Compartir</b> y elegí <b>«Agregar a inicio»</b>.</p>
+      </div>
+      <div class="card">
+        <div class="h"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#a37b00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg><span>Compu</span></div>
+        <p>En Chrome tocá el ícono de <b>instalar</b> en la barra de direcciones.</p>
+      </div>
+    </div>
+  </section>
+  <div class="chips">
+    <span style="background:#e0f1e7;color:#0e5c35">Fotos reales del catálogo</span>
+    <span style="background:#e6e9e7;color:#262b29">Agua · Desagüe · Gas</span>
+    <span style="background:#fff3c4;color:#5a4500">Lista en PDF y por WhatsApp</span>
+  </div>
+  <div class="foot">
+    <span class="url">rodolfoemanuelduran-dotcom.github.io/lista-de-obra</span>
+    <span class="by">Curso de Plomería Integral · R.E.D</span>
+  </div>
+  <div class="stripe" style="bottom:0" aria-hidden="true"><i class="a"></i><i class="d"></i><i class="g"></i></div>
+</main>
+</div>
+<script>
+// En pantallas chicas, achicar la hoja para que entre entera (al imprimir sale a tamaño real).
+(function () {
+  var stage = document.getElementById('stage'), sheet = document.getElementById('sheet');
+  function fit() {
+    var s = Math.min(1, (document.documentElement.clientWidth - 24) / 794);
+    sheet.style.transform = s < 1 ? 'scale(' + s + ')' : '';
+    stage.style.width = (794 * s) + 'px'; stage.style.height = (1123 * s) + 'px';
+  }
+  fit(); window.addEventListener('resize', fit);
+})();
+</script>
+</body>
+</html>

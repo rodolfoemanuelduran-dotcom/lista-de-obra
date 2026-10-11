@@ -4,10 +4,13 @@ App del curso de **Plomería Integral** (R.E.D) para armar en la obra la lista d
 
 **Abrir la app:** https://rodolfoemanuelduran-dotcom.github.io/lista-de-obra/
 
-## Cómo instalarla en el celular
+**Cartel con QR para imprimir (A4):** https://rodolfoemanuelduran-dotcom.github.io/lista-de-obra/cartel/
+
+## Cómo instalarla
 
 - **Android (Chrome):** abrí el link, tocá el menú ⋮ y elegí "Instalar app" o "Agregar a la pantalla principal".
 - **iPhone (Safari):** abrí el link, tocá el botón Compartir y elegí "Agregar a inicio".
+- **Compu (Chrome o Edge):** abrí el link y tocá el ícono de instalar en la barra de direcciones. Queda un ícono en el escritorio que abre la app.
 
 Una vez instalada funciona sin señal. Cada alumno guarda sus obras en su propio celular.
 

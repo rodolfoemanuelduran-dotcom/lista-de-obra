@@ -783,6 +783,7 @@ function viewAbout() {
   return `<section class="about"><img class="about-logo" src="${LOGO}" alt="Logo R.E.D armado con caños y accesorios de desagüe, agua y gas" width="${LOGO_W}" height="${LOGO_H}"><h2>Lista de Obra</h2>
     <p>App del curso de <b>Plomería Integral</b> para armar en la obra la lista de materiales y mandarla en PDF al cliente o al corralón.</p>
     <p class="small">Idea y docencia: R.E.D · Versión 1 (etapa 1: catálogo, listas, PDF, buscador e historial).</p>
+    <p class="small"><a href="https://rodolfoemanuelduran-dotcom.github.io/lista-de-obra/cartel/" target="_blank" rel="noopener">Cartel con QR para imprimir y compartir la app</a></p>
     <p class="small">Nombres técnicos, códigos y fotos: Catálogo Sistemas 2026 del Grupo Dema (Acqua System, Duratop X, Demafix, Sigas). No es una app oficial del fabricante. Confirmá precios y disponibilidad con tu comercio.</p></section>`;
 }
 
@@ -1143,7 +1144,7 @@ async function makeListPDF(o) {
   const fids = Array.from(new Set(items.map(x => x.fid)));
   for (const fid of fids) { try { const data = await jpegOf('img/' + fid + '.webp', 96); imgName[fid] = 'I' + (images.length + 1); images.push({name: imgName[fid], w: 96, h: 96, data}); } catch (e) {} }
   let logoName = null;
-  const LW = 260, LH = Math.round(260 * LOGO_H / LOGO_W);
+  const LW = 440, LH = Math.round(440 * LOGO_H / LOGO_W);
   try { const data = await jpegOf(LOGO, LW, LH); logoName = 'L1'; images.push({name: logoName, w: LW, h: LH, data}); } catch (e) {}
 
   const M = 36, X = {ph: M, q: M + 30, d: M + 76, md: M + 258, cd: M + 334, pu: M + 405, st: M + 464, end: PW - M};
@@ -1158,9 +1159,13 @@ async function makeListPDF(o) {
   function newPage(first) {
     pg = new Page(); pages.push(pg); y = 40;
     if (first) {
+      // logo chico en la esquina superior derecha; número y fecha a su izquierda
+      const hlh = 30, hlw = hlh * LOGO_W / LOGO_H;
+      if (logoName) pg.img(logoName, PW - M - hlw, y - 4, hlw, hlh);
+      const rx = logoName ? PW - M - hlw - 12 : PW - M;
       pg.text(M, y + 14, 'LISTA DE MATERIALES', {size: 16, b: true});
-      pg.text(PW - M, y + 14, 'N° ' + num, {size: 14, b: true, align: 'right'});
-      pg.text(PW - M, y + 28, 'Fecha: ' + fmtDate(o.fecha), {size: 9, align: 'right', c: MUTED});
+      pg.text(rx, y + 14, 'N° ' + num, {size: 14, b: true, align: 'right'});
+      pg.text(rx, y + 28, 'Fecha: ' + fmtDate(o.fecha), {size: 9, align: 'right', c: MUTED});
       y += 30;
       if (p.nombre) { pg.text(M, y + 4, p.nombre, {size: 11.5, b: true}); y += 15; }
       const contact = [p.tel && 'Tel. ' + p.tel, p.email, p.mat && 'Mat. ' + p.mat, p.dir].filter(Boolean).join('  ·  ');
