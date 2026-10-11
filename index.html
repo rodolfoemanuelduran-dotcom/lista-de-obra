@@ -11,7 +11,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Lista de Obra">
 <title>Lista de Obra</title>
-<link rel="icon" href="logo-red.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-64.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -89,8 +89,7 @@ img{display:block}
 .ab-title{min-width:0;display:flex;flex-direction:column;line-height:1.1}
 .ab-title b{font-family:var(--font-display);font-size:22px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ab-title span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ab-logo{width:40px;height:40px;margin-left:2px;display:block}
-.ab-logo svg{width:40px;height:40px;display:block}
+.ab-logo{height:40px;width:auto;margin-left:2px;display:block}
 .ab-right{display:flex;gap:2px}
 
 /* Vista */
@@ -242,7 +241,7 @@ img{display:block}
 .ob-actions{display:flex;flex-wrap:wrap;gap:8px}
 .tag{font-size:12px;font-weight:700;color:var(--on-agua);background:var(--agua);border-radius:5px;padding:1px 7px}
 .about{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 16px}
-.about svg{width:150px;height:150px}
+.about-logo{width:min(340px,88%);height:auto;display:block;margin:2px 0 4px}
 .about h2{font-size:30px}
 .about p{max-width:52ch;font-size:15.5px}
 .about .small{font-size:13.5px;color:var(--muted)}
@@ -294,6 +293,8 @@ img{display:block}
 
 /* Aviso */
 .toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;background:var(--graf);color:var(--on-graf);border-radius:12px;padding:10px 16px;font-weight:600;font-size:15px;max-width:calc(100% - 32px);box-shadow:var(--shadow);text-align:center}
+.upd{position:fixed;left:50%;top:calc(66px + env(safe-area-inset-top,0px));transform:translateX(-50%);z-index:61;display:flex;align-items:center;gap:12px;background:var(--graf);color:var(--on-graf);border-radius:14px;padding:8px 8px 8px 16px;font-weight:600;font-size:15px;box-shadow:var(--shadow);width:max-content;max-width:calc(100% - 24px)}
+.upd button{min-height:40px;padding:0 16px;border-radius:10px;background:var(--agua);color:var(--on-agua);font-weight:700;font-size:15px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
@@ -304,12 +305,13 @@ img{display:block}
 <nav class="bottombar" id="bottombar" hidden></nav>
 <div class="sheet" id="sheet" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<div class="upd" id="upd" role="status" hidden><span>Hay una versión nueva</span><button type="button" data-act="reload">Actualizar</button></div>
 
 <script>
 'use strict';
 (function () {
 const WIDTHS = {"Helvetica":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,278,278,584,584,584,556,1015,667,667,722,722,667,611,778,722,278,500,667,556,833,722,778,667,778,722,667,611,722,667,944,667,667,611,278,278,278,469,556,333,556,556,500,556,556,278,556,556,222,222,500,222,833,556,556,556,556,333,500,278,556,500,722,500,500,500,334,260,334,584,761,556,0,222,556,333,1000,556,556,333,1000,667,333,1000,0,611,0,0,222,222,333,333,350,556,1000,333,1000,500,333,944,0,500,667,278,333,556,556,556,556,260,556,333,737,370,556,584,333,737,333,400,584,333,333,333,556,537,278,333,333,365,556,834,834,834,611,667,667,667,667,667,667,1000,722,667,667,667,667,278,278,278,278,722,722,778,778,778,778,778,584,778,722,722,722,722,667,667,611,556,556,556,556,556,556,889,500,556,556,556,556,278,278,278,278,556,556,556,556,556,556,556,584,611,556,556,556,556,500,556,500],"Helvetica-Bold":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,975,722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,333,278,333,584,556,333,556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,389,280,389,584,761,556,0,278,556,500,1000,556,556,333,1000,667,333,1000,0,611,0,0,278,278,500,500,350,556,1000,333,1000,556,333,944,0,500,667,278,333,556,556,556,556,280,556,333,737,370,556,584,333,737,333,400,584,333,333,333,611,556,278,333,333,365,556,834,834,834,611,722,722,722,722,722,722,1000,722,667,667,667,667,278,278,278,278,722,722,778,778,778,778,778,584,778,722,722,722,722,667,667,611,556,556,556,556,556,556,889,556,556,556,556,556,278,278,278,278,611,611,611,611,611,611,611,584,611,611,611,611,611,556,611,556]};
-const LOGO_SVG = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" aria-hidden=\"true\" focusable=\"false\"><circle cx=\"256\" cy=\"256\" r=\"214\" fill=\"#ffffff\" stroke=\"#16834b\" stroke-width=\"44\"/><circle cx=\"256\" cy=\"256\" r=\"193\" fill=\"none\" stroke=\"#0e6136\" stroke-width=\"3\" opacity=\"0.45\"/><g fill=\"none\" stroke-width=\"11\" stroke-linecap=\"round\"><path d=\"M386.8 69.2A228 228 0 0 1 442.8 125.2\" stroke=\"#e03a3e\"/><path d=\"M125.2 442.8A228 228 0 0 1 69.2 386.8\" stroke=\"#e03a3e\"/><path d=\"M69.2 125.2A228 228 0 0 1 125.2 69.2\" stroke=\"#2f7fe0\"/><path d=\"M442.8 386.8A228 228 0 0 1 386.8 442.8\" stroke=\"#2f7fe0\"/></g><g fill=\"none\" stroke=\"#1b2421\" stroke-width=\"26\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M128 303V209H144.5A23.5 23.5 0 0 1 144.5 256H128M144.5 256L168 303\"/><path d=\"M270 209H240V303H270M240 256H264\"/><path d=\"M342 303V209H351A33 33 0 0 1 384 242V270A33 33 0 0 1 351 303Z\"/></g><circle cx=\"204\" cy=\"306\" r=\"10.5\" fill=\"#e03a3e\"/><circle cx=\"306\" cy=\"306\" r=\"10.5\" fill=\"#2f7fe0\"/></svg>";
+const LOGO = 'logo-red.webp', LOGO_W = 720, LOGO_H = 332;
 const INCH = {20: '½', 25: '¾', 32: '1', 40: '1¼', 50: '1½', 63: '2', 75: '2½', 90: '3', 110: '4'};
 const RM = {
   agua: {n: 'Provisión de agua', s: 'Agua', sub: 'Acqua System · termofusión, agua fría y caliente', pdf: [0.082, 0.502, 0.290], pdfInk: [1, 1, 1]},
@@ -500,7 +502,7 @@ function render() {
 function renderBar(st, title, sub) {
   const bar = $('#appbar');
   if (st.v === 'home') {
-    bar.innerHTML = `<span class="ab-logo" aria-hidden="true">${LOGO_SVG}</span>
+    bar.innerHTML = `<img class="ab-logo" src="${LOGO}" alt="" aria-hidden="true" width="${Math.round(40 * LOGO_W / LOGO_H)}" height="40">
       <div class="ab-title"><b>Lista de Obra</b><span>Curso de Plomería Integral · R.E.D</span></div>
       <div class="ab-right"><button class="ab-btn" data-act="go-search" aria-label="Buscar">${ICON.search}</button><button class="ab-btn" data-act="go-obras" aria-label="Mis obras">${ICON.obras}</button></div>`;
   } else {
@@ -778,7 +780,7 @@ function viewPerfil() {
     </section>`;
 }
 function viewAbout() {
-  return `<section class="about">${LOGO_SVG}<h2>Lista de Obra</h2>
+  return `<section class="about"><img class="about-logo" src="${LOGO}" alt="Logo R.E.D armado con caños y accesorios de desagüe, agua y gas" width="${LOGO_W}" height="${LOGO_H}"><h2>Lista de Obra</h2>
     <p>App del curso de <b>Plomería Integral</b> para armar en la obra la lista de materiales y mandarla en PDF al cliente o al corralón.</p>
     <p class="small">Idea y docencia: R.E.D · Versión 1 (etapa 1: catálogo, listas, PDF, buscador e historial).</p>
     <p class="small">Nombres técnicos, códigos y fotos: Catálogo Sistemas 2026 del Grupo Dema (Acqua System, Duratop X, Demafix, Sigas). No es una app oficial del fabricante. Confirmá precios y disponibilidad con tu comercio.</p></section>`;
@@ -878,6 +880,7 @@ document.addEventListener('click', e => {
     case 'go-obras': go({v: 'obras'}); break;
     case 'go-perfil': go({v: 'perfil'}); break;
     case 'go-about': go({v: 'about'}); break;
+    case 'reload': location.reload(); break;
     case 'go-list': if (top().v !== 'list') go({v: 'list'}); break;
     case 'go-rama': go({v: 'rama', r: el.dataset.r}); break;
     case 'go-cat': go({v: 'cat', r: el.dataset.r, c: el.dataset.c}); break;
@@ -1115,15 +1118,17 @@ function assemblePDF(pages, images, title) {
   const out = new Uint8Array(len); let o = 0; chunks.forEach(c => { out.set(c, o); o += c.length; });
   return out;
 }
-function jpegOf(src, size) {
+function jpegOf(src, size, hgt) {
+  const W = size, H = hgt || size;
   return new Promise((res, rej) => {
     const im = new Image();
     im.onload = () => {
       try {
-        const c = document.createElement('canvas'); c.width = size; c.height = size; const g = c.getContext('2d');
-        g.fillStyle = '#ffffff'; g.fillRect(0, 0, size, size);
-        const nw = im.naturalWidth || size, nh = im.naturalHeight || size; const s = Math.min(size / nw, size / nh);
-        g.drawImage(im, (size - nw * s) / 2, (size - nh * s) / 2, nw * s, nh * s);
+        const c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d');
+        g.fillStyle = '#ffffff'; g.fillRect(0, 0, W, H);
+        const nw = im.naturalWidth || W, nh = im.naturalHeight || H; const s = Math.min(W / nw, H / nh);
+        g.imageSmoothingQuality = 'high';
+        g.drawImage(im, (W - nw * s) / 2, (H - nh * s) / 2, nw * s, nh * s);
         c.toBlob(b => { if (!b) return rej(new Error('jpeg')); b.arrayBuffer().then(ab => res(new Uint8Array(ab)), rej); }, 'image/jpeg', 0.86);
       } catch (e) { rej(e); }
     };
@@ -1138,7 +1143,8 @@ async function makeListPDF(o) {
   const fids = Array.from(new Set(items.map(x => x.fid)));
   for (const fid of fids) { try { const data = await jpegOf('img/' + fid + '.webp', 96); imgName[fid] = 'I' + (images.length + 1); images.push({name: imgName[fid], w: 96, h: 96, data}); } catch (e) {} }
   let logoName = null;
-  try { const data = await jpegOf('logo-red.svg', 96); logoName = 'L1'; images.push({name: logoName, w: 96, h: 96, data}); } catch (e) {}
+  const LW = 260, LH = Math.round(260 * LOGO_H / LOGO_W);
+  try { const data = await jpegOf(LOGO, LW, LH); logoName = 'L1'; images.push({name: logoName, w: LW, h: LH, data}); } catch (e) {}
 
   const M = 36, X = {ph: M, q: M + 30, d: M + 76, md: M + 258, cd: M + 334, pu: M + 405, st: M + 464, end: PW - M};
   const pages = []; let pg = null; let y = 0; const BOTTOM = PH - 64;
@@ -1226,8 +1232,9 @@ async function makeListPDF(o) {
     pp.line(M, PH - 50, PW - M, PH - 50, LINE, 0.5);
     pp.text(M, PH - 39, 'Nombres y códigos según el Catálogo Sistemas 2026 del Grupo Dema. Precios y disponibilidad a confirmar por el comercio.', {size: 6.8, c: MUTED});
     pp.text(PW - M, PH - 39, 'Página ' + (i + 1) + ' de ' + pages.length, {size: 7.5, c: MUTED, align: 'right'});
-    if (logoName) pp.img(logoName, M, PH - 33, 13, 13);
-    pp.text(M + (logoName ? 17 : 0), PH - 23.5, 'Hecho con Lista de Obra · Curso de Plomería Integral · R.E.D', {size: 6.8, c: MUTED});
+    const lh = 14, lw = lh * LOGO_W / LOGO_H;
+    if (logoName) pp.img(logoName, M, PH - 34, lw, lh);
+    pp.text(M + (logoName ? lw + 5 : 0), PH - 24, 'Hecho con Lista de Obra · Curso de Plomería Integral · R.E.D', {size: 6.8, c: MUTED});
   });
   return assemblePDF(pages, images, 'Lista de materiales N ' + num);
 }
@@ -1243,7 +1250,12 @@ async function boot() {
     console.error(e);
     $('#view').innerHTML = '<div class="empty"><b>No se pudo cargar el catálogo</b><span>Revisá la conexión y volvé a abrir la app.</span></div>';
   }
-  if (!IN_VIEWER && 'serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
+  if (!IN_VIEWER && 'serviceWorker' in navigator) {
+    // Si ya había una versión guardada y entra una nueva, ofrecer recargar para verla.
+    const hadCtl = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => { if (hadCtl) $('#upd').hidden = false; });
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
 }
 boot();
 })();
